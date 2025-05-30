@@ -1,6 +1,5 @@
 package com.gamesUP.gamesUP.model;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -8,23 +7,17 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PurchaseLine {
+public class InventoryLine {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne(optional = false)
+    private Inventory inventory;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "game_id")
     private Game game;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "purchase_id")
-    private Purchase purchase;
-
-    private int quantite;
-
-    private double prix;
-
+    private int quantity;
 }

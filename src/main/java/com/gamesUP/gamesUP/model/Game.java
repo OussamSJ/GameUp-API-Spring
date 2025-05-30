@@ -1,12 +1,41 @@
 package com.gamesUP.gamesUP.model;
 
+import jakarta.persistence.*;
+import lombok.*;
+import java.util.*;
+
+
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+
 public class Game {
 
-    public int id;
-    public String nom;
-    public String auteur; //Class Author disponible
-    public String genre;
-    public Category category;
-    public Publisher publisher;
-    public int numEdition;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String nom;
+
+    @ManyToOne
+    @JoinColumn(name = "author_id", nullable = false)
+    private Author author;
+
+    private String genre;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
+    @ManyToOne
+    @JoinColumn(name = "publisher_id")
+    private Publisher publisher;
+
+    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = false)
+    private Set<Avis> avis = new HashSet<>();
+
+    private int numEdition;
+
+
 }
