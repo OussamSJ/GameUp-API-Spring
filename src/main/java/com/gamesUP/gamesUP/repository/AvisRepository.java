@@ -9,4 +9,5 @@ import java.util.List;
 public interface AvisRepository extends JpaRepository<Avis,Integer> {
 
     List<Avis> findByGameId(Long gameId);
+    List<Avis> findByUserId(Long userId);
 }

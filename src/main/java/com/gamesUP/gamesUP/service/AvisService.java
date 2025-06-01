@@ -12,6 +12,5 @@ public interface AvisService {
     void patch(Long id, Avis partialAvis);
     void delete(Long id);
     List<Avis> getAvisByGameId(Long gameId);
-
-
+    List<Avis> getAvisByUserId(Long userId);
 }

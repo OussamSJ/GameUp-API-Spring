@@ -1,8 +1,8 @@
 package com.gamesUP.gamesUP.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.*;
 import org.antlr.v4.runtime.misc.NotNull;
 
@@ -20,6 +20,8 @@ public class Avis {
 	private String commentaire;
 
 	@Column(nullable = false)
+	@Min(value = 1, message = "La note est entre 1 et 5" )
+	@Max(value = 5, message = "La note est entre 1 et 5" )
 	@NotNull
 	private Integer note;
 

@@ -2,7 +2,11 @@ package com.gamesUP.gamesUP.service.impl;
 
 import com.gamesUP.gamesUP.exception.EntityDontExistException;
 import com.gamesUP.gamesUP.model.Avis;
+import com.gamesUP.gamesUP.model.Game;
+import com.gamesUP.gamesUP.model.User;
 import com.gamesUP.gamesUP.repository.AvisRepository;
+import com.gamesUP.gamesUP.repository.GameRepository;
+import com.gamesUP.gamesUP.repository.UserRepository;
 import com.gamesUP.gamesUP.service.AvisService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.*;
@@ -15,6 +19,8 @@ import java.util.List;
 public class AvisServiceImpl implements AvisService {
 
     private final AvisRepository avisRepository;
+    private final UserRepository userRepository;
+    private final GameRepository gameRepository;
 
     @Override
     public List<Avis> findAll() {
@@ -28,6 +34,12 @@ public class AvisServiceImpl implements AvisService {
 
     @Override
     public Avis create(Avis avis) {
+        //Vérifier que le jeu existe déjà
+        Game game = gameRepository.findById(Math.toIntExact(avis.getGame().getId()))
+                .orElseThrow(() -> new EntityNotFoundException("Game not found"));
+        //Vérifier que l'utilisateur existe déjà
+        User user = userRepository.findById(Math.toIntExact(avis.getUser().getId()))
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
         return avisRepository.save(avis);
     }
 
@@ -73,6 +85,17 @@ public class AvisServiceImpl implements AvisService {
 
     @Override
     public List<Avis> getAvisByGameId(Long gameId) {
+        //Vérifier que le jeux existe déjà
+        Game game = gameRepository.findById(Math.toIntExact(gameId))
+                .orElseThrow(() -> new EntityNotFoundException("Game not found"));
         return avisRepository.findByGameId(gameId);
+    }
+
+    @Override
+    public List<Avis> getAvisByUserId(Long userId) {
+        //Vérifier que l'utilisateur existe déjà
+        User user = userRepository.findById(Math.toIntExact(userId))
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
+        return avisRepository.findByUserId(userId);
     }
 }

@@ -2,6 +2,7 @@ package com.gamesUP.gamesUP.controller;
 
 import com.gamesUP.gamesUP.model.Avis;
 import com.gamesUP.gamesUP.service.AvisService;
+import jakarta.validation.Valid;
 import lombok.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +30,7 @@ public class AvisController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Avis create(@RequestBody Avis avis) {
+    public Avis create(@Valid @RequestBody Avis avis) {
         return avisService.create(avis);
     }
 
@@ -54,5 +55,11 @@ public class AvisController {
     @ResponseStatus(HttpStatus.OK)
     public List<Avis> getAvisByGameId(@PathVariable Long gameId) {
         return avisService.getAvisByGameId(gameId);
+    }
+
+    @GetMapping("/user/{userId}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Avis> getAvisByUserId(@PathVariable Long userId) {
+        return avisService.getAvisByUserId(userId);
     }
 }

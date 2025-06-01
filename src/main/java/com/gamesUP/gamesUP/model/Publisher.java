@@ -1,7 +1,11 @@
 package com.gamesUP.gamesUP.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -16,5 +20,10 @@ public class Publisher {
 	private Long id;
 
 	@Column(nullable = false)
+	@NotBlank(message = "Le nom de l'éditeur est obligatoire")
 	private String name;
+
+	@OneToMany(mappedBy = "publisher", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonManagedReference
+	private Set<Game> games = new HashSet<>();
 }

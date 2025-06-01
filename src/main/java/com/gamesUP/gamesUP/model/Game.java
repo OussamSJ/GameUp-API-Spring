@@ -26,12 +26,13 @@ public class Game {
 
     private String genre;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
     @ManyToOne
     @JoinColumn(name = "publisher_id")
+    @JsonBackReference
     private Publisher publisher;
 
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
