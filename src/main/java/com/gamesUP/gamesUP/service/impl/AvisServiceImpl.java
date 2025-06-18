@@ -29,23 +29,23 @@ public class AvisServiceImpl implements AvisService {
 
     @Override
     public Avis findById(Long id) {
-        return avisRepository.findById(Math.toIntExact(id)).orElseThrow(() -> new EntityNotFoundException("Avis not found"));
+        return avisRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Avis not found"));
     }
 
     @Override
     public Avis create(Avis avis) {
         //Vérifier que le jeu existe déjà
-        Game game = gameRepository.findById(Math.toIntExact(avis.getGame().getId()))
+        Game game = gameRepository.findById(avis.getGame().getId())
                 .orElseThrow(() -> new EntityNotFoundException("Game not found"));
         //Vérifier que l'utilisateur existe déjà
-        User user = userRepository.findById(Math.toIntExact(avis.getUser().getId()))
+        User user = userRepository.findById(avis.getUser().getId())
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
         return avisRepository.save(avis);
     }
 
     @Override
     public Avis update(Long id, Avis avis) {
-        if (!avisRepository.existsById(Math.toIntExact(id))) {
+        if (!avisRepository.existsById(id)) {
             throw new EntityNotFoundException("Avis not found");
         }
         avis.setId(id);
@@ -54,7 +54,7 @@ public class AvisServiceImpl implements AvisService {
 
     @Override
     public void patch(Long id, Avis partialAvis) {
-        Avis existing = avisRepository.findById(Math.toIntExact(id))
+        Avis existing = avisRepository.findById(id)
                 .orElseThrow(() -> new EntityDontExistException());
 
         if (partialAvis.getCommentaire() != null) {
@@ -78,15 +78,15 @@ public class AvisServiceImpl implements AvisService {
 
     @Override
     public void delete(Long id) {
-        Avis existing = avisRepository.findById(Math.toIntExact(id))
+        Avis existing = avisRepository.findById(id)
                 .orElseThrow(() -> new EntityDontExistException());
-        avisRepository.deleteById(Math.toIntExact(id));
+        avisRepository.deleteById(id);
     }
 
     @Override
     public List<Avis> getAvisByGameId(Long gameId) {
         //Vérifier que le jeux existe déjà
-        Game game = gameRepository.findById(Math.toIntExact(gameId))
+        Game game = gameRepository.findById(gameId)
                 .orElseThrow(() -> new EntityNotFoundException("Game not found"));
         return avisRepository.findByGameId(gameId);
     }
@@ -94,7 +94,7 @@ public class AvisServiceImpl implements AvisService {
     @Override
     public List<Avis> getAvisByUserId(Long userId) {
         //Vérifier que l'utilisateur existe déjà
-        User user = userRepository.findById(Math.toIntExact(userId))
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
         return avisRepository.findByUserId(userId);
     }

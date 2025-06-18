@@ -1,5 +1,6 @@
 package com.gamesUP.gamesUP.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -24,6 +25,6 @@ public class Publisher {
 	private String name;
 
 	@OneToMany(mappedBy = "publisher", cascade = CascadeType.ALL, orphanRemoval = true)
-	@JsonManagedReference
+	@JsonBackReference
 	private Set<Game> games = new HashSet<>();
 }

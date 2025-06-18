@@ -23,7 +23,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category findById(Long id) {
-        return categoryRepository.findById(Math.toIntExact(id))
+        return categoryRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Catégorie non trouvée"));
     }
 
@@ -41,10 +41,10 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void delete(Long id) {
-        if (!categoryRepository.existsById(Math.toIntExact(id))) {
+        if (!categoryRepository.existsById(id)) {
             throw new EntityDontExistException();
         }
-        categoryRepository.deleteById(Math.toIntExact(id));
+        categoryRepository.deleteById(id);
     }
 
 }

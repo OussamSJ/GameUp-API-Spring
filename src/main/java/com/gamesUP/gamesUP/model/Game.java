@@ -2,6 +2,7 @@ package com.gamesUP.gamesUP.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.*;
@@ -32,11 +33,10 @@ public class Game {
 
     @ManyToOne
     @JoinColumn(name = "publisher_id")
-    @JsonBackReference
     private Publisher publisher;
 
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonBackReference
+    @JsonManagedReference
     private Set<Avis> avis = new HashSet<>();
 
     private int numEdition;

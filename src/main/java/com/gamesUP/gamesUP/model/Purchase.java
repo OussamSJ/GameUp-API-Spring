@@ -1,12 +1,13 @@
 package com.gamesUP.gamesUP.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
 import java.util.List;
-
-
 
 @Entity
 @Data
@@ -22,10 +23,11 @@ public class Purchase {
 	@JoinColumn(name = "user_id")
 	private User user;
 
-	@OneToMany(mappedBy = "purchase", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "purchase", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonIgnore
 	private List<PurchaseLine> lines;
 
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	private Date date;
 
 	@Enumerated(EnumType.STRING)

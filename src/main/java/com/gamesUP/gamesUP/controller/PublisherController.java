@@ -30,7 +30,7 @@ public class PublisherController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Publisher create(@Valid @RequestBody Publisher publisher) {
+    public Long create(@Valid @RequestBody Publisher publisher) {
         return publisherService.create(publisher);
     }
 

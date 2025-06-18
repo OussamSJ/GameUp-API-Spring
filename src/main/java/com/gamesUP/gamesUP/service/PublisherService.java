@@ -9,7 +9,7 @@ public interface PublisherService {
 
     Publisher findById(Long id);
 
-    Publisher create(Publisher publisher);
+    Long create(Publisher publisher);
 
     Publisher update(Long id, Publisher publisher);
 

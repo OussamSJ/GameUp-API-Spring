@@ -24,7 +24,7 @@ public class AuthorController {
 
     @GetMapping("/{id}")
     @ResponseStatus(code = HttpStatus.OK)
-    public Author findById(@PathVariable("id") int id_author){
+    public Author findById(@PathVariable("id") Long id_author){
         return authorService.findById(id_author);
     }
 
@@ -36,14 +36,14 @@ public class AuthorController {
 
     @PutMapping("/{id}")
     @ResponseStatus(code = HttpStatus.OK)
-    public void modifier(@PathVariable("id") int id_author, @RequestBody Author author) {
+    public void modifier(@PathVariable("id") Long id_author, @RequestBody Author author) {
         authorService.findById(id_author);
         authorService.update(id_author,author);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(code=HttpStatus.OK)
-    public void delete( @PathVariable("id") int id_author) {
+    public void delete( @PathVariable("id") Long id_author) {
         //Vérifier si l'author existe puis supprimer
         authorService.findById(id_author);
         Author author = authorService.findById(id_author);

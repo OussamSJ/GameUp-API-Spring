@@ -9,9 +9,9 @@ public interface AuthorService {
 
     public Long create(Author author);
 
-    Author findById(int id_author);
+    Author findById(Long id_author);
 
-    void update(int idAuthor, Author author);
+    void update(Long idAuthor, Author author);
 
     void delete(Long id_author);
 }
