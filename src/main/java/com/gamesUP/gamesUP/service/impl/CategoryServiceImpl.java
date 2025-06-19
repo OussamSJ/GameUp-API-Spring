@@ -24,7 +24,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category findById(Long id) {
         return categoryRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Catégorie non trouvée"));
+                .orElseThrow(() -> new EntityNotFoundException("Category not found"));
     }
 
     @Override
@@ -35,6 +35,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category update(Long id, Category category) {
         Category existing = findById(id);
+        // Met à jour les champs
         existing.setType(category.getType());
         return categoryRepository.save(existing);
     }

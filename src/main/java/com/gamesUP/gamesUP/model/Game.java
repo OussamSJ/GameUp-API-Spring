@@ -35,10 +35,9 @@ public class Game {
     @JoinColumn(name = "publisher_id")
     private Publisher publisher;
 
-    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
-    private Set<Avis> avis = new HashSet<>();
+
 
     private int numEdition;
+
 
 }

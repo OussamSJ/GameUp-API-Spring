@@ -1,11 +1,8 @@
 package com.gamesUP.gamesUP.model;
 
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,14 +20,8 @@ public class User {
     private String nom;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<Avis> avis = new HashSet<>();
 
-    @ManyToMany
-    @JoinTable(
-            name = "wishlist",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "game_id")
-    )
-    private Set<Game> wishlist = new HashSet<>();
 
 }

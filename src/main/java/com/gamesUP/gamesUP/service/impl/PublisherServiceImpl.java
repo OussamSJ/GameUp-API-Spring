@@ -24,7 +24,7 @@ public class PublisherServiceImpl implements PublisherService {
     @Override
     public Publisher findById(Long id) {
         return publisherRepository.findById(id)
-                .orElseThrow(() -> new EntityDontExistException());
+                .orElseThrow(() -> new EntityDontExistException("Publisher not found"));
     }
 
     @Override
@@ -35,6 +35,7 @@ public class PublisherServiceImpl implements PublisherService {
     @Override
     public Publisher update(Long id, Publisher publisher) {
         Publisher existing = findById(id);
+        // Met à jour les champs
         existing.setName(publisher.getName());
         return publisherRepository.save(existing);
     }

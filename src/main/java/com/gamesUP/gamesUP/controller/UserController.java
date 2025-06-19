@@ -1,8 +1,7 @@
 package com.gamesUP.gamesUP.controller;
 
-import com.gamesUP.gamesUP.dto.GameDTO;
-import com.gamesUP.gamesUP.model.Game;
-import com.gamesUP.gamesUP.service.GameService;
+import com.gamesUP.gamesUP.model.User;
+import com.gamesUP.gamesUP.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -11,40 +10,40 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/games")
+@RequestMapping("/api/users")
 @RequiredArgsConstructor
-public class GameController {
+public class UserController {
 
-    private final GameService gameService;
-
+    private final UserService userService;
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<GameDTO> findAll() {
-        return gameService.getGames();
+    public List<User> findAll() {
+        return userService.findAll();
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Game findById(@PathVariable Long id) {
-        return gameService.findById(id);
+    public User findById(@PathVariable Long id) {
+        return userService.findById(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Long create(@RequestBody @Valid Game game) {
-        return gameService.create(game);
+    public Long create(@RequestBody @Valid User user) {
+        return userService.create(user);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Game update(@PathVariable Long id, @RequestBody @Valid Game game) {
-        return gameService.update(id, game);
+    public User update(@PathVariable Long id, @RequestBody @Valid User user) {
+        return userService.update(id, user);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {
-        gameService.delete(id);
+        userService.delete(id);
     }
+
 }

@@ -24,7 +24,7 @@ public class InventoryServiceImpl implements InventoryService {
     @Override
     public Inventory findById(Long id) {
         return inventoryRepository.findById(id)
-                .orElseThrow(() -> new EntityDontExistException());
+                .orElseThrow(() -> new EntityDontExistException("Inventory not found"));
     }
 
     @Override
@@ -35,6 +35,7 @@ public class InventoryServiceImpl implements InventoryService {
     @Override
     public Inventory update(Long id, Inventory inventory) {
         Inventory existing = findById(id);
+        // Met à jour les champs
         existing.setStock(inventory.getStock()); // attention à bien gérer les lignes
         return inventoryRepository.save(existing);
     }

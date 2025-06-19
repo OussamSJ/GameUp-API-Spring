@@ -28,25 +28,22 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public Long create(Author author) {
-
         return authorRepository.save(author).getId();
     }
 
     @Override
     public Author findById(Long id_author) {
         Optional<Author> author = authorRepository.findById(id_author);
-
-        //Si l'auteur est trouvé
+        // Met à jour les champs
         if(author.isPresent()) {
             return author.get();
         }
         //Sinon on renvoie une erreur
-        throw new EntityDontExistException();
+        throw new EntityDontExistException("Author not found");
     }
 
     @Override
     public void update(Long id_author, Author author) {
-
         author.setId( id_author);
         authorRepository.save(author);
     }

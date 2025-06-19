@@ -29,7 +29,8 @@ public class AvisServiceImpl implements AvisService {
 
     @Override
     public Avis findById(Long id) {
-        return avisRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Avis not found"));
+        return avisRepository.findById(id)
+                .orElseThrow(() -> new EntityDontExistException("Avis not found"));
     }
 
     @Override
@@ -56,7 +57,7 @@ public class AvisServiceImpl implements AvisService {
     public void patch(Long id, Avis partialAvis) {
         Avis existing = avisRepository.findById(id)
                 .orElseThrow(() -> new EntityDontExistException());
-
+        // Met à jour les champs
         if (partialAvis.getCommentaire() != null) {
             existing.setCommentaire(partialAvis.getCommentaire());
         }

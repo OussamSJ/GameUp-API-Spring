@@ -1,6 +1,7 @@
 package com.gamesUP.gamesUP.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -25,7 +26,7 @@ public class Avis {
 	@NotNull
 	private Integer note;
 
-	@ManyToOne
+	@ManyToOne(optional = false)
 	@JoinColumn(name = "user_id")
 	private User user;
 

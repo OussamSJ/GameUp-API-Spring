@@ -1,6 +1,5 @@
 package com.gamesUP.gamesUP.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -8,22 +7,20 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PurchaseLine {
+@Table(name = "wishlist") // le nom de la table peut rester le même
+public class Wishlist {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(optional = false)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @ManyToOne(optional = false)
     @JoinColumn(name = "game_id")
     private Game game;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "purchase_id")
-    @JsonBackReference
-    private Purchase purchase;
 
-    private int quantite;
-
-    private double prix;
 }

@@ -24,7 +24,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Override
     public Purchase findById(Long id) {
         return purchaseRepository.findById(id)
-                .orElseThrow(() -> new EntityDontExistException());
+                .orElseThrow(() -> new EntityDontExistException("Purchase not found"));
     }
 
     @Override

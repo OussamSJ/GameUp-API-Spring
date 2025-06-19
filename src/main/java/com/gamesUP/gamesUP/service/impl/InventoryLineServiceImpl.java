@@ -23,7 +23,7 @@ public class InventoryLineServiceImpl implements InventoryLineService {
     @Override
     public InventoryLine findById(Long id) {
         return inventoryLineRepository.findById(id)
-                .orElseThrow(() -> new EntityDontExistException());
+                .orElseThrow(() -> new EntityDontExistException("Purchase-Line not found"));
     }
 
     @Override
@@ -34,6 +34,7 @@ public class InventoryLineServiceImpl implements InventoryLineService {
     @Override
     public InventoryLine update(Long id, InventoryLine inventoryLine) {
         InventoryLine existing = findById(id);
+        // Met à jour les champs
         existing.setInventory(inventoryLine.getInventory());
         existing.setGame(inventoryLine.getGame());
         existing.setQuantity(inventoryLine.getQuantity());
