@@ -2,7 +2,6 @@ package com.gamesUP.gamesUP.service.impl;
 
 import com.gamesUP.gamesUP.exception.EntityDontExistException;
 import com.gamesUP.gamesUP.model.User;
-import com.gamesUP.gamesUP.repository.GameRepository;
 import com.gamesUP.gamesUP.repository.UserRepository;
 import com.gamesUP.gamesUP.service.UserService;
 import lombok.RequiredArgsConstructor;

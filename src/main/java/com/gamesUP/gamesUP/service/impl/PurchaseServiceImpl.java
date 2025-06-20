@@ -6,7 +6,6 @@ import com.gamesUP.gamesUP.exception.EntityDontExistException;
 import com.gamesUP.gamesUP.model.*;
 import com.gamesUP.gamesUP.repository.*;
 import com.gamesUP.gamesUP.service.PurchaseService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +16,7 @@ import java.util.stream.Collectors;
 public class PurchaseServiceImpl implements PurchaseService {
 
     private final PurchaseRepository purchaseRepository;
+    private final PurchaseLineRepository purchaseLineRepository;
     private final GameRepository gameRepository;
     private final UserRepository userRepository;
 
@@ -63,7 +63,10 @@ public class PurchaseServiceImpl implements PurchaseService {
     public PurchaseDTO patch(Long id, PurchaseDTO dto) {
         Purchase purchase = purchaseRepository.findById(id)
                 .orElseThrow(() -> new EntityDontExistException("Purchase not found"));
+        User user = userRepository.findById(dto.getUserId())
+                .orElseThrow(() -> new EntityDontExistException("User not found"));
 
+        if (dto.getUserId() != null) purchase.setUser(user);
         if (dto.getDate() != null) purchase.setDate(dto.getDate());
         if (dto.getStatus() != null) purchase.setStatus(dto.getStatus());
 
@@ -84,11 +87,8 @@ public class PurchaseServiceImpl implements PurchaseService {
                         p.getId(),
                         p.getUser().getId(),
                         p.getUser().getNom(),
-                        l.getGame().getId(),
-                        l.getGame().getNom(),
                         l.getQuantite(),
-                        l.getPrix(),
-                        p.getDate()
+                        l.getPrix()
                 )
         ).toList();
 
@@ -120,4 +120,15 @@ public class PurchaseServiceImpl implements PurchaseService {
         purchase.setLines(lines);
         return purchase;
     }
+    @Override
+    public PurchaseDTO findPurchaseByLineId(Long lineId) {
+        PurchaseLine line = purchaseLineRepository.findById(lineId)
+                .orElseThrow(() -> new EntityDontExistException("PurchaseLine not found"));
+
+        Purchase purchase = line.getPurchase();
+
+        return toDTO(purchase);
+    }
+
+
 }

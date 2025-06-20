@@ -1,6 +1,5 @@
 package com.gamesUP.gamesUP.controller;
 
-import com.gamesUP.gamesUP.model.Avis;
 import com.gamesUP.gamesUP.model.Category;
 import com.gamesUP.gamesUP.service.CategoryService;
 import jakarta.validation.Valid;

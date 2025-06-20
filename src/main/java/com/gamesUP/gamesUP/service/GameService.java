@@ -1,7 +1,6 @@
 package com.gamesUP.gamesUP.service;
 
 import com.gamesUP.gamesUP.dto.GameDTO;
-import com.gamesUP.gamesUP.model.Game;
 import jakarta.transaction.Transactional;
 
 import java.util.List;
@@ -17,6 +16,9 @@ public interface GameService {
     Long create(GameDTO gameDTO);
 
     GameDTO update(Long id, GameDTO gameDTO);
+
+    @Transactional
+    GameDTO patch(Long id, GameDTO partialDto);
 
     void delete(Long id);
 }

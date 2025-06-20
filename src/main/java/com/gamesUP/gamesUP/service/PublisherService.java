@@ -1,7 +1,6 @@
 package com.gamesUP.gamesUP.service;
 
 import com.gamesUP.gamesUP.model.Publisher;
-
 import java.util.List;
 
 public interface PublisherService {

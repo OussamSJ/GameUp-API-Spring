@@ -40,6 +40,11 @@ public class GameController {
     public GameDTO update(@PathVariable Long id, @RequestBody @Valid GameDTO gameDTO) {
         return gameService.update(id, gameDTO);
     }
+    @PatchMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public GameDTO patch(@PathVariable Long id, @RequestBody GameDTO partialDto) {
+        return gameService.patch(id, partialDto);
+    }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

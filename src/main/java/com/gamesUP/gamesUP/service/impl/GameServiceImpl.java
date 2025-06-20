@@ -95,6 +95,49 @@ public class GameServiceImpl implements GameService {
         Game saved = gameRepository.save(existing);
         return mapToDTO(saved);
     }
+    @Override
+    @Transactional
+    public GameDTO patch(Long id, GameDTO partialDto) {
+        Game existing = gameRepository.findById(id)
+                .orElseThrow(() -> new EntityDontExistException("Game not found"));
+
+        if (partialDto.getNom() != null) {
+            existing.setNom(partialDto.getNom());
+        }
+
+        if (partialDto.getGenre() != null) {
+            existing.setGenre(partialDto.getGenre());
+        }
+
+        if (partialDto.getNumEdition() != 0) {
+            existing.setNumEdition(partialDto.getNumEdition());
+        }
+
+        if (partialDto.getAuthorName() != null) {
+            existing.setAuthor(
+                    authorRepository.findByName(partialDto.getAuthorName())
+                            .orElseThrow(() -> new EntityDontExistException("Author not found"))
+            );
+        }
+
+        if (partialDto.getPublisherName() != null) {
+            existing.setPublisher(
+                    publisherRepository.findByName(partialDto.getPublisherName())
+                            .orElseThrow(() -> new EntityDontExistException("Publisher not found"))
+            );
+        }
+
+        if (partialDto.getCategory() != null) {
+            existing.setCategory(
+                    categoryRepository.findByType(partialDto.getCategory())
+                            .orElseThrow(() -> new EntityDontExistException("Category not found"))
+            );
+        }
+
+        Game saved = gameRepository.save(existing);
+        return mapToDTO(saved);
+    }
+
 
     @Override
     @Transactional

@@ -12,11 +12,8 @@ public class PurchaseLineDTO {
 
     private Long id;
     private Long PurchaseId;
-    private Long userId;
-    private String userName;
     private Long gameId;
     private String gameName;
     private int quantite;
     private double prix;
-    private Date date;
 }
