@@ -5,6 +5,7 @@ import com.gamesUP.gamesUP.exception.EntityDontExistException;
 import com.gamesUP.gamesUP.model.Inventory;
 import com.gamesUP.gamesUP.repository.InventoryRepository;
 import com.gamesUP.gamesUP.service.InventoryService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -33,10 +34,13 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
+    @Transactional
     public Inventory update(Long id, Inventory inventory) {
-        Inventory existing = findById(id);
+        Inventory existing = inventoryRepository.findById(id)
+                .orElseThrow(() -> new EntityDontExistException("Inventory not found"));
         // Met à jour les champs
-        existing.setStock(inventory.getStock()); // attention à bien gérer les lignes
+        existing.setName(inventory.getName());
+
         return inventoryRepository.save(existing);
     }
 

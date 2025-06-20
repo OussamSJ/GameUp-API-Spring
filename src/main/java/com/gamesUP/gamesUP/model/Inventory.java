@@ -6,14 +6,12 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import java.util.*;
 
-
-
 @Entity
 @Table(name = "inventory")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Inventory {
+public class Inventory{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

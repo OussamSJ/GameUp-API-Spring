@@ -34,7 +34,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category update(Long id, Category category) {
-        Category existing = findById(id);
+        Category existing = categoryRepository.findById(id)
+                .orElseThrow(() -> new EntityDontExistException("Avis not found"));;
         // Met à jour les champs
         existing.setType(category.getType());
         return categoryRepository.save(existing);

@@ -1,6 +1,6 @@
 package com.gamesUP.gamesUP.controller;
 
-import com.gamesUP.gamesUP.model.InventoryLine;
+import com.gamesUP.gamesUP.dto.InventoryLineDTO;
 import com.gamesUP.gamesUP.service.InventoryLineService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -14,35 +14,47 @@ import java.util.List;
 @RequiredArgsConstructor
 public class InventoryLineController {
 
-    private final InventoryLineService inventoryLineService;
+    private final InventoryLineService service;
 
     @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public List<InventoryLine> findAll() {
-        return inventoryLineService.findAll();
+    public List<InventoryLineDTO> findAll() {
+        return service.findAll();
     }
 
     @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public InventoryLine findById(@PathVariable Long id) {
-        return inventoryLineService.findById(id);
+    public InventoryLineDTO findById(@PathVariable Long id) {
+        return service.findById(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Long create(@Valid @RequestBody InventoryLine inventoryLine) {
-        return inventoryLineService.create(inventoryLine);
+    public Long create(@RequestBody @Valid InventoryLineDTO dto) {
+        return service.create(dto);
     }
 
     @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public InventoryLine update(@PathVariable Long id, @Valid @RequestBody InventoryLine inventoryLine) {
-        return inventoryLineService.update(id, inventoryLine);
+    public InventoryLineDTO update(@PathVariable Long id, @RequestBody @Valid InventoryLineDTO dto) {
+        return service.update(id, dto);
+    }
+
+    @PatchMapping("/{id}")
+    public InventoryLineDTO patch(@PathVariable Long id, @RequestBody InventoryLineDTO dto) {
+        return service.patch(id, dto);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {
-        inventoryLineService.delete(id);
+        service.delete(id);
     }
+    @GetMapping("/inventory/{inventoryId}")
+    public List<InventoryLineDTO> getByInventory(@PathVariable Long inventoryId) {
+        return service.getByInventoryId(inventoryId);
+    }
+
+    @GetMapping("/game/{gameId}")
+    public List<InventoryLineDTO> getByGame(@PathVariable Long gameId) {
+        return service.getByGameId(gameId);
+    }
+
 }

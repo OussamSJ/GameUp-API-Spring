@@ -21,10 +21,10 @@ public class Purchase {
 
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "user_id")
+	@JsonIgnore
 	private User user;
 
 	@OneToMany(mappedBy = "purchase", cascade = CascadeType.ALL, orphanRemoval = true)
-	@JsonIgnore
 	private List<PurchaseLine> lines;
 
 	@Temporal(TemporalType.DATE)

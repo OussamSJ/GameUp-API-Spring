@@ -1,5 +1,6 @@
 package com.gamesUP.gamesUP.service;
 
+import com.gamesUP.gamesUP.dto.InventoryLineDTO;
 import com.gamesUP.gamesUP.model.Inventory;
 
 import java.util.List;

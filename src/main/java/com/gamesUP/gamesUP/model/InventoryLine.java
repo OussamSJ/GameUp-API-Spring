@@ -16,6 +16,7 @@ public class InventoryLine {
     private Long id;
 
     @ManyToOne(optional = false)
+    @JsonBackReference
     private Inventory inventory;
 
     @ManyToOne(optional = false)

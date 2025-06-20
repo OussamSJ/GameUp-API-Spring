@@ -1,13 +1,15 @@
 package com.gamesUP.gamesUP.service;
 
-import com.gamesUP.gamesUP.model.InventoryLine;
-
+import com.gamesUP.gamesUP.dto.InventoryLineDTO;
 import java.util.List;
 
 public interface InventoryLineService {
-    List<InventoryLine> findAll();
-    InventoryLine findById(Long id);
-    Long create(InventoryLine inventoryLine);
-    InventoryLine update(Long id, InventoryLine inventoryLine);
+    List<InventoryLineDTO> findAll();
+    InventoryLineDTO findById(Long id);
+    Long create(InventoryLineDTO dto);
+    InventoryLineDTO update(Long id, InventoryLineDTO dto);
+    InventoryLineDTO patch(Long id, InventoryLineDTO dto);
     void delete(Long id);
+    List<InventoryLineDTO> getByInventoryId(Long inventoryId);
+    List<InventoryLineDTO> getByGameId(Long gameId);
 }
