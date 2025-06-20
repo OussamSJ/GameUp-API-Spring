@@ -22,7 +22,7 @@ public class Game {
 
     @ManyToOne
     @JoinColumn(name = "author_id", nullable = false)
-    @JsonIgnore
+    @JsonBackReference
     private Author author;
 
     private String genre;
@@ -35,9 +35,6 @@ public class Game {
     @JoinColumn(name = "publisher_id")
     private Publisher publisher;
 
-
-
     private int numEdition;
-
 
 }

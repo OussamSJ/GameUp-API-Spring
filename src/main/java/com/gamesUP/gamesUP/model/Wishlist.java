@@ -7,7 +7,7 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "wishlist") // le nom de la table peut rester le même
+@Table(name = "wishlist")
 public class Wishlist {
 
     @Id

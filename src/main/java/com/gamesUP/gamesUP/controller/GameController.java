@@ -1,7 +1,6 @@
 package com.gamesUP.gamesUP.controller;
 
 import com.gamesUP.gamesUP.dto.GameDTO;
-import com.gamesUP.gamesUP.model.Game;
 import com.gamesUP.gamesUP.service.GameService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -26,20 +25,20 @@ public class GameController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Game findById(@PathVariable Long id) {
-        return gameService.findById(id);
+    public GameDTO findById(@PathVariable Long id) {
+        return gameService.getGameById(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Long create(@RequestBody @Valid Game game) {
-        return gameService.create(game);
+    public Long create(@RequestBody @Valid GameDTO gameDTO) {
+        return gameService.create(gameDTO);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Game update(@PathVariable Long id, @RequestBody @Valid Game game) {
-        return gameService.update(id, game);
+    public GameDTO update(@PathVariable Long id, @RequestBody @Valid GameDTO gameDTO) {
+        return gameService.update(id, gameDTO);
     }
 
     @DeleteMapping("/{id}")

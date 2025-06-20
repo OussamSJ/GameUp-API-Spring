@@ -12,7 +12,7 @@ public class GameDTO {
     private String genre;
     private String authorName;
     private String publisherName;
-    private String type;
+    private String Category;
     private int numEdition;
 
 }

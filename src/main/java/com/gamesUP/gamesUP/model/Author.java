@@ -1,5 +1,7 @@
 package com.gamesUP.gamesUP.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.*;
@@ -22,6 +24,7 @@ public class Author {
 
 
     @OneToMany(mappedBy = "author",cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<Game> games = new HashSet<>();
 
 }
