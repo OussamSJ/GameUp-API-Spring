@@ -67,7 +67,7 @@ class AuthorServiceTest {
         verify(authorRepository).save(author);
     }
 
-    /*@Test
+    @Test
     void update_whenFound_shouldSave() {
         Author existing = new Author(1L, "Old Name", null);
         Author update = new Author(null, "New Name", null);
@@ -86,17 +86,17 @@ class AuthorServiceTest {
 
         assertThatThrownBy(() -> authorService.update(1L, new Author()))
                 .isInstanceOf(EntityDontExistException.class);
-    }*/
+    }
 
-    /*@Test
+    @Test
     void delete_whenFound_shouldDelete() {
         Author author = new Author(1L, "Author", null);
-        author  =   authorRepository.save(author);
+
         when(authorRepository.findById(1L)).thenReturn(Optional.of(author));
         doNothing().when(authorRepository).deleteById(1L);
 
         authorService.delete(1L);
-
+        verify(authorRepository).findById(1L);
         verify(authorRepository).deleteById(1L);
     }
 
@@ -106,5 +106,5 @@ class AuthorServiceTest {
 
         assertThatThrownBy(() -> authorService.delete(1L))
                 .isInstanceOf(EntityDontExistException.class);
-    }*/
+    }
 }

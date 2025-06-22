@@ -44,15 +44,16 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public void update(Long id_author, Author author) {
-        author.setId( id_author);
-        authorRepository.save(author);
+        Author existing = authorRepository.findById(id_author)
+                .orElseThrow(() -> new EntityDontExistException("Author not found"));
+        existing.setName(author.getName());
+        authorRepository.save(existing);
     }
 
     @Override
     public void delete(Long id) {
-        if (!authorRepository.existsById(id)) {
-            throw new EntityDontExistException();
-        }
+        authorRepository.findById(id)
+                .orElseThrow(() -> new EntityDontExistException("Author not found"));
         authorRepository.deleteById(id);
     }
 

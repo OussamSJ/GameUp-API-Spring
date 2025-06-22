@@ -37,17 +37,13 @@ public class AuthorController {
     @PutMapping("/{id}")
     @ResponseStatus(code = HttpStatus.OK)
     public void modifier(@PathVariable("id") Long id_author, @RequestBody Author author) {
-        authorService.findById(id_author);
         authorService.update(id_author,author);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(code=HttpStatus.OK)
     public void delete( @PathVariable("id") Long id_author) {
-        //Vérifier si l'author existe puis supprimer
-        authorService.findById(id_author);
-        Author author = authorService.findById(id_author);
-        authorService.delete(author.getId());
+        authorService.delete(id_author);
     }
 
 }

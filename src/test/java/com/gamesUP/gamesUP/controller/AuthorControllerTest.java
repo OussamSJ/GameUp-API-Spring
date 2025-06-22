@@ -4,7 +4,6 @@ import com.gamesUP.gamesUP.model.Author;
 import com.gamesUP.gamesUP.service.AuthorService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
-import org.mockito.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -54,21 +53,20 @@ class AuthorControllerTest {
     @Test
     void create_shouldReturnCreatedId() throws Exception {
         Author author = new Author(null, "New Author", null);
-        when(authorService.create(any())).thenReturn(5L);
+        when(authorService.create(any())).thenReturn(1L);
 
         mockMvc.perform(post("/api/authors")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(author)))
                 .andExpect(status().isCreated())
-                .andExpect(content().string("5"));
+                .andExpect(content().string("1"));
     }
 
     @Test
     void update_shouldReturnOk() throws Exception {
         Author author = new Author(null, "Updated Author", null);
+        when(authorService.findById(1L)).thenReturn(author);
         doNothing().when(authorService).update(eq(1L), any());
-
-        when(authorService.findById(1L)).thenReturn(new Author(1L, "Old Name", null));
 
         mockMvc.perform(put("/api/authors/1")
                         .contentType(MediaType.APPLICATION_JSON)
