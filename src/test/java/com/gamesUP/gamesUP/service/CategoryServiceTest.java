@@ -103,4 +103,6 @@ public class CategoryServiceTest {
         assertThatThrownBy(() -> categoryService.delete(1L))
                 .isInstanceOf(EntityDontExistException.class);
     }
+
+
 }
