@@ -11,6 +11,5 @@ public interface PurchaseService {
     PurchaseDTO patch(Long id, PurchaseDTO purchaseDTO);
     void delete(Long id);
 
-    PurchaseDTO findPurchaseByLineId(Long lineId);
 }
 

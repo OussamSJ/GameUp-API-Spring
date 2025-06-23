@@ -13,6 +13,7 @@ import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
@@ -99,6 +100,10 @@ public class GameServiceTest {
         GameDTO updated = gameService.update(1L, updateDto);
 
         assertThat(updated.getNom()).isEqualTo("New");
+        assertThat(updated.getGenre()).isEqualTo("NewGenre");
+        assertThat(updated.getAuthorName()).isEqualTo(null);
+        assertThat(updated.getPublisherName()).isEqualTo(null);
+        assertThat(updated.getCategory()).isEqualTo(null);
         verify(gameRepository).findById(1L);
         verify(gameRepository).save(existing);
     }
@@ -114,6 +119,10 @@ public class GameServiceTest {
         GameDTO result = gameService.patch(1L, patchDto);
 
         assertThat(result.getNom()).isEqualTo("Patched");
+        assertThat(result.getGenre()).isEqualTo("genre");
+        assertThat(result.getAuthorName()).isEqualTo(null);
+        assertThat(result.getPublisherName()).isEqualTo(null);
+        assertThat(result.getCategory()).isEqualTo(null);
         assertThat(result.getNumEdition()).isEqualTo(5);
         verify(gameRepository).findById(1L);
         verify(gameRepository).save(existing);
@@ -157,5 +166,78 @@ public class GameServiceTest {
         assertThat(dto.getCategory()).isEqualTo("Fantasy");
         assertThat(dto.getNumEdition()).isEqualTo(2);
     }
+
+    @Test
+    void shouldUpdateGameWithAuthorPublisherCategory() {
+        Game existing = new Game(1L, "Old Game", null, "Old Genre", null, null, 1);
+
+        GameDTO dto = new GameDTO(
+                1L,
+                "New Game",
+                "Adventure",
+                "NewAuthor",
+                "NewPublisher",
+                "RPG",
+                2
+
+        );
+
+        Author author = new Author(1L, "NewAuthor", new HashSet<>());
+        Publisher publisher = new Publisher(1L, "NewPublisher", new HashSet<>());
+        Category category = new Category(1L, "RPG", new HashSet<>());
+
+        when(gameRepository.findById(1L)).thenReturn(Optional.of(existing));
+        when(authorRepository.findByName("NewAuthor")).thenReturn(Optional.of(author));
+        when(publisherRepository.findByName("NewPublisher")).thenReturn(Optional.of(publisher));
+        when(categoryRepository.findByType("RPG")).thenReturn(Optional.of(category));
+        when(gameRepository.save(any(Game.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        GameDTO updated = gameService.update(1L, dto);
+
+        assertEquals("NewAuthor", updated.getAuthorName());
+        assertEquals("NewPublisher", updated.getPublisherName());
+        assertEquals("RPG", updated.getCategory());
+
+        verify(authorRepository).findByName("NewAuthor");
+        verify(publisherRepository).findByName("NewPublisher");
+        verify(categoryRepository).findByType("RPG");
+    }
+
+    @Test
+    void shouldPatchGameWithAuthorPublisherCategory() {
+        Game existing = new Game(1L, "Old Game", null, "Old Genre", null, null, 1);
+
+        GameDTO dto = new GameDTO(
+                1L,
+                "New Game",
+                "Adventure",
+                "NewAuthor",
+                "NewPublisher",
+                "RPG",
+                2
+
+        );
+
+        Author author = new Author(1L, "NewAuthor", new HashSet<>());
+        Publisher publisher = new Publisher(1L, "NewPublisher", new HashSet<>());
+        Category category = new Category(1L, "RPG", new HashSet<>());
+
+        when(gameRepository.findById(1L)).thenReturn(Optional.of(existing));
+        when(authorRepository.findByName("NewAuthor")).thenReturn(Optional.of(author));
+        when(publisherRepository.findByName("NewPublisher")).thenReturn(Optional.of(publisher));
+        when(categoryRepository.findByType("RPG")).thenReturn(Optional.of(category));
+        when(gameRepository.save(any(Game.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        GameDTO patched = gameService.patch(1L, dto);
+
+        assertEquals("NewAuthor", patched.getAuthorName());
+        assertEquals("NewPublisher", patched.getPublisherName());
+        assertEquals("RPG", patched.getCategory());
+
+        verify(authorRepository).findByName("NewAuthor");
+        verify(publisherRepository).findByName("NewPublisher");
+        verify(categoryRepository).findByType("RPG");
+    }
+
 
 }

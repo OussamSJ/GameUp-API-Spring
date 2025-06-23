@@ -34,6 +34,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 
     @Override
     public Long create(PurchaseDTO dto) {
+
         Purchase purchase = fromDTO(dto);
         purchase = purchaseRepository.save(purchase);
         return purchase.getId();
@@ -120,15 +121,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         purchase.setLines(lines);
         return purchase;
     }
-    @Override
-    public PurchaseDTO findPurchaseByLineId(Long lineId) {
-        PurchaseLine line = purchaseLineRepository.findById(lineId)
-                .orElseThrow(() -> new EntityDontExistException("PurchaseLine not found"));
 
-        Purchase purchase = line.getPurchase();
-
-        return toDTO(purchase);
-    }
 
 
 }
