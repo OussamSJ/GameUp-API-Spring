@@ -96,7 +96,7 @@ public class PurchaseLineServiceImpl implements PurchaseLineService {
         purchaseLineRepository.delete(line);
     }
 
-    private PurchaseLineDTO mapToDTO(PurchaseLine line) {
+    public PurchaseLineDTO mapToDTO(PurchaseLine line) {
         return new PurchaseLineDTO(
                 line.getId(),
                 line.getPurchase().getId(),
