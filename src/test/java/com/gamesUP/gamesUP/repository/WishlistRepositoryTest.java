@@ -36,8 +36,8 @@ public class WishlistRepositoryTest {
     @Test
     @DisplayName("Should save and retrieve a Wishlist entry")
     void shouldSaveAndRetrieveWishlist() {
-        User user = new User();
-        user.setNom("UserTest");
+        User user = new User(1L,"Alice", "username","password","role");
+
         user = userRepository.save(user);
 
         Game game = new Game();
@@ -66,8 +66,8 @@ public class WishlistRepositoryTest {
     @Test
     @DisplayName("Should delete a Wishlist entry")
     void shouldDeleteWishlist() {
-        User user = new User();
-        user.setNom("UserDelete");
+        User user = new User(1L,"Alice", "username","password","role");
+
         user = userRepository.save(user);
 
         Game game = new Game();

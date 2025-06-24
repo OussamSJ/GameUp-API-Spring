@@ -28,7 +28,7 @@ class UserControllerTest {
 
     @Test
     void shouldGetAllUsers() throws Exception {
-        List<User> users = List.of(new User(1L, "Bob", new HashSet<>()));
+        List<User> users = List.of(new User(1L, "Bob", null,null,null));
         when(userService.findAll()).thenReturn(users);
 
         mockMvc.perform(get("/api/users"))
@@ -38,7 +38,7 @@ class UserControllerTest {
 
     @Test
     void shouldGetUserById() throws Exception {
-        User user = new User(1L, "Alice", new HashSet<>());
+        User user = new User(1L, "Alice","username",null,null);
         when(userService.findById(1L)).thenReturn(user);
 
         mockMvc.perform(get("/api/users/1"))
@@ -48,7 +48,7 @@ class UserControllerTest {
 
     @Test
     void shouldCreateUser() throws Exception {
-        User user = new User(null, "Charlie", new HashSet<>());
+        User user = new User(null, "Charlie", null,null,null);
         when(userService.create(any(User.class))).thenReturn(1L);
 
         mockMvc.perform(post("/api/users")
@@ -59,7 +59,7 @@ class UserControllerTest {
 
     @Test
     void shouldUpdateUser() throws Exception {
-        User user = new User(1L, "Updated", new HashSet<>());
+        User user = new User(1L, "Updated", null,null,null);
         when(userService.update(eq(1L), any(User.class))).thenReturn(user);
 
         mockMvc.perform(put("/api/users/1")

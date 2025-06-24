@@ -34,7 +34,7 @@ class WishlistServiceTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        user = new User(1L, "John", null);
+        user = new User(1L, "John", null,null,null);
         game = new Game(1L, "Zelda", new Author(1L, "Author",null), "Adventure", new Category(1L, "RPG",null),new Publisher(1L, "Publisher", null), 1);
     }
 

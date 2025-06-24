@@ -49,8 +49,8 @@ public class PurchaseLineRepositoryTest {
         game.setPublisher(publisher);
         game = gameRepository.save(game);
 
-        User user = new User();
-        user.setNom("Client1");
+        User user = new User(1L,"Alice", "username","password","role");
+
         user = userRepository.save(user);
 
         Purchase purchase = new Purchase();
@@ -64,7 +64,7 @@ public class PurchaseLineRepositoryTest {
 
         assertThat(savedLine.getId()).isNotNull();
         assertThat(savedLine.getGame().getNom()).isEqualTo("Test Game");
-        assertThat(savedLine.getPurchase().getUser().getNom()).isEqualTo("Client1");
+        assertThat(savedLine.getPurchase().getUser().getNom()).isEqualTo("Alice");
         assertThat(savedLine.getQuantite()).isEqualTo(4);
     }
 

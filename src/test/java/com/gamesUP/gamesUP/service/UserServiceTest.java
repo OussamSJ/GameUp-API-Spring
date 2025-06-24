@@ -26,7 +26,7 @@ class UserServiceTest {
 
     @Test
     void shouldFindAllUsers() {
-        List<User> users = List.of(new User(1L, "John", new HashSet<>()));
+        List<User> users = List.of(new User(1L, "John", null,null,null));
         when(userRepository.findAll()).thenReturn(users);
 
         List<User> result = userService.findAll();
@@ -37,7 +37,7 @@ class UserServiceTest {
 
     @Test
     void shouldFindUserById() {
-        User user = new User(1L, "Alice", new HashSet<>());
+        User user = new User(1L, "Alice", null,null,null);
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
 
         User result = userService.findById(1L);
@@ -54,8 +54,8 @@ class UserServiceTest {
 
     @Test
     void shouldCreateUser() {
-        User user = new User(null, "New User", new HashSet<>());
-        User saved = new User(1L, "New User", new HashSet<>());
+        User user = new User(null, "New User", null,null,null);
+        User saved = new User(1L, "New User", null,null,null);
         when(userRepository.save(user)).thenReturn(saved);
 
         Long id = userService.create(user);
@@ -65,8 +65,8 @@ class UserServiceTest {
 
     @Test
     void shouldUpdateUser() {
-        User existing = new User(1L, "Old Name", new HashSet<>());
-        User updated = new User(null, "Updated Name", new HashSet<>());
+        User existing = new User(1L, "Old Name", null,null,null);
+        User updated = new User(null, "Updated Name", null,null,null);
 
         when(userRepository.findById(1L)).thenReturn(Optional.of(existing));
         when(userRepository.save(any(User.class))).thenAnswer(inv -> inv.getArgument(0));
@@ -78,7 +78,7 @@ class UserServiceTest {
 
     @Test
     void shouldDeleteUser() {
-        User user = new User(1L, "To Delete", new HashSet<>());
+        User user = new User(1L, "ToDelete", null,null,null);
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
 
         userService.delete(1L);

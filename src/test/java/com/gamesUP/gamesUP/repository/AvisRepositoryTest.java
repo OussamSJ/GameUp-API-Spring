@@ -32,9 +32,9 @@ public class AvisRepositoryTest {
     @Test
     @DisplayName("Should save and retrieve an Avis")
     void shouldSaveAndRetrieveAvis() {
-        // Arrange
-        User user = new User();
-        user.setNom("Alice");
+
+        User user = new User(1L,"Alice", "username","password","role");
+
         user = userRepository.save(user);
 
         Game game = buildAndSaveValidGame("Zelda");
@@ -62,8 +62,7 @@ public class AvisRepositoryTest {
     @Test
     @DisplayName("Should find Avis by User ID")
     void shouldFindAvisByUserId() {
-        User user = new User();
-        user.setNom("Bob");
+        User user = new User(1L,"Bob","username","password","role");
         user = userRepository.save(user);
 
         Game game = buildAndSaveValidGame("Mario");
@@ -80,8 +79,8 @@ public class AvisRepositoryTest {
     @Test
     @DisplayName("Should find Avis by Game ID")
     void shouldFindAvisByGameId() {
-        User user = new User();
-        user.setNom("Charlie");
+        User user = new User(1L,"Charlie", "username","password","role");
+
         user = userRepository.save(user);
 
         Game game = buildAndSaveValidGame("Sonic");
@@ -98,8 +97,8 @@ public class AvisRepositoryTest {
     @Test
     @DisplayName("Should delete an Avis")
     void shouldDeleteAvis() {
-        User user = new User();
-        user.setNom("David");
+        User user = new User(1L,"David", "username","password","role");
+
         user = userRepository.save(user);
 
         Game game = buildAndSaveValidGame("Pac-Man");

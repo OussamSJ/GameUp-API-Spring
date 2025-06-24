@@ -19,21 +19,21 @@ public class UserRepositoryTest {
     @Test
     @DisplayName("Should save and retrieve user by ID")
     void shouldSaveAndFindUser() {
-        User user = new User();
-        user.setNom("TestUser");
+        User user = new User(1L,"Alice", "username","password","role");
+
         user = userRepository.save(user);
 
         Optional<User> found = userRepository.findById(user.getId());
 
         assertThat(found).isPresent();
-        assertThat(found.get().getNom()).isEqualTo("TestUser");
+        assertThat(found.get().getNom()).isEqualTo("Alice");
     }
 
     @Test
     @DisplayName("Should delete user")
     void shouldDeleteUser() {
-        User user = new User();
-        user.setNom("ToDelete");
+        User user = new User(1L,"Alice", "username","password","role");
+
         user = userRepository.save(user);
 
         Long id = user.getId();

@@ -39,8 +39,8 @@ public class PurchaseRepositoryTest {
     @Test
     @DisplayName("Should save and retrieve a Purchase")
     void shouldSaveAndRetrievePurchase() {
-        User user = new User();
-        user.setNom("Alice");
+        User user = new User(1L,"Alice", "username","password","role");
+
         user = userRepository.save(user);
 
         Game game = new Game();
@@ -79,8 +79,8 @@ public class PurchaseRepositoryTest {
     @Test
     @DisplayName("Should delete a Purchase")
     void shouldDeletePurchase() {
-        User user = new User();
-        user.setNom("Bob");
+        User user = new User(1L,"Alice", "username","password","role");
+
         user = userRepository.save(user);
 
         Purchase purchase = new Purchase();
@@ -110,8 +110,8 @@ public class PurchaseRepositoryTest {
         game.setPublisher(publisher);
         game = gameRepository.save(game);
 
-        User user = new User();
-        user.setNom("DeleteUser");
+        User user = new User(1L,"Alice", "username","password","role");
+
         user = userRepository.save(user);
 
         Purchase purchase = new Purchase();

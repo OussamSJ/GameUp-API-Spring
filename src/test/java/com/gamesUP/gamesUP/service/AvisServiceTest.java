@@ -30,16 +30,17 @@ public class AvisServiceTest {
         private UserRepository userRepository;
         @InjectMocks
         private AvisServiceImpl avisService;
-
+        private User user;
         @BeforeEach
         void setup() {
             MockitoAnnotations.openMocks(this);
+             user = new User(1L, "John", "username","password","admin");
         }
 
 
         @Test
     void getAll_shouldReturnListOfAvisDTOs() {
-        User user = new User(1L, "Alice", null);
+
         Game game = new Game();
         game.setId(1L);
         game.setNom("Zelda");
@@ -59,7 +60,7 @@ public class AvisServiceTest {
 
     @Test
     void getById_shouldReturnAvisDTO() {
-        User user = new User(1L, "Alice", null);
+
         Game game = new Game();
         game.setId(1L);
         game.setNom("Zelda");
@@ -82,7 +83,7 @@ public class AvisServiceTest {
 
     @Test
     void create_shouldReturnId() {
-        User user = new User(1L, "Bob", null);
+
         Game game = new Game();
         game.setId(2L);
         game.setNom("Mario");
@@ -104,7 +105,7 @@ public class AvisServiceTest {
     }
     @Test
     void update_shouldUpdateAvisAndReturnDto() {
-        User user = new User(1L, "Alice", null);
+
         Game game = new Game();
         game.setId(1L);
         game.setNom("Zelda");
@@ -127,7 +128,7 @@ public class AvisServiceTest {
 
     @Test
     void patch_shouldUpdateFields() {
-        User user = new User(1L, "Eve", null);
+
         Game game = new Game();
         game.setId(3L);
         game.setNom("Sonic");
@@ -148,7 +149,7 @@ public class AvisServiceTest {
 
     @Test
     void delete_shouldRemoveAvis() {
-        User user = new User(1L, "David", null);
+
         Game game = new Game();
         game.setId(2L);
         game.setNom("Halo");
@@ -165,7 +166,7 @@ public class AvisServiceTest {
 
     @Test
     void getAvisByUser_shouldReturnListOfAvisDTOs() {
-        User user = new User(3L, "Bob", null);
+
         Game game = new Game();
         game.setId(2L);
         game.setNom("Halo");
@@ -177,15 +178,15 @@ public class AvisServiceTest {
 
         assertThat(result).hasSize(1);
         assertThat(result.get(0).getId()).isEqualTo(1L);
-        assertThat(result.get(0).getUserId()).isEqualTo(3L);
-        assertThat(result.get(0).getUserNom()).isEqualTo("Bob");
+        assertThat(result.get(0).getUserId()).isEqualTo(1L);
+        assertThat(result.get(0).getUserNom()).isEqualTo("John");
 
         verify(avisRepository).findByUserId(3L);
     }
 
     @Test
     void getAvisByGame_shouldReturnListOfAvisDTOs() {
-        User user = new User(1L, "Alice", null);
+
         Game game = new Game();
         game.setId(2L);
         game.setNom("Halo");
@@ -206,7 +207,7 @@ public class AvisServiceTest {
 
     @Test
     void getById_shouldMapEntityToDtoCorrectly() {
-        User user = new User(1L, "Alice", null);
+
         Game game = new Game();
         game.setId(2L);
         game.setNom("Zelda");
@@ -221,7 +222,7 @@ public class AvisServiceTest {
         assertThat(result.getCommentaire()).isEqualTo("Très bon jeu");
         assertThat(result.getNote()).isEqualTo(5);
         assertThat(result.getUserId()).isEqualTo(1L);
-        assertThat(result.getUserNom()).isEqualTo("Alice");
+        assertThat(result.getUserNom()).isEqualTo("John");
         assertThat(result.getGameId()).isEqualTo(2L);
         assertThat(result.getGameNom()).isEqualTo("Zelda");
 
