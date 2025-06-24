@@ -7,23 +7,35 @@ import io.jsonwebtoken.security.Keys;
 import lombok.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import org.springframework.security.core.GrantedAuthority;
 
+
+import javax.crypto.SecretKey;
+import java.util.Base64;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Component
 public class JwtUtil {
 
-
-    private final String jwtSecret = "YxvK9PvYF3sGq2BmKzP4XtT7Eqw9HRmFd7gNtpzUuKmL2sXfWmQZRpSHhLrDNe7q";
+    private final String jwtSecret = "QvNV6Fzp+UemFlPZZrLCxUQ6sOgN91xu+YVZ3Zloy/dMmbGGlLuCZC/jVcnl+3aLMmj3z3lgzDGmLkKLbZSp4Q==";
 
     private final long jwtExpirationMs = 86400000;
 
     public String generateToken(UserDetails userDetails) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("roles", userDetails.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toList()));
+
         return Jwts.builder()
+                .setClaims(claims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationMs))
-                .signWith(Keys.hmacShaKeyFor(jwtSecret.getBytes()), SignatureAlgorithm.HS512)
+                .signWith(SignatureAlgorithm.HS512, Base64.getDecoder().decode(jwtSecret))
                 .compact();
     }
 
