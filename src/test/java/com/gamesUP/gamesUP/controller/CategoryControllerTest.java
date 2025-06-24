@@ -1,12 +1,14 @@
 package com.gamesUP.gamesUP.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gamesUP.gamesUP.configuration.NoSecurityConfig;
 import com.gamesUP.gamesUP.model.Category;
 import com.gamesUP.gamesUP.service.CategoryService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -17,6 +19,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(CategoryController.class)
+@Import(NoSecurityConfig.class)
 public class CategoryControllerTest {
 
     @Autowired
