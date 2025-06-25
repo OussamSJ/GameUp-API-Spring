@@ -1,11 +1,14 @@
 package com.gamesUP.gamesUP.service.impl;
 
+import com.gamesUP.gamesUP.dto.RegisterDTO;
 import com.gamesUP.gamesUP.exception.EntityDontExistException;
 import com.gamesUP.gamesUP.model.User;
 import com.gamesUP.gamesUP.repository.UserRepository;
 import com.gamesUP.gamesUP.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 
@@ -14,6 +17,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public List<User> findAll() {
@@ -26,16 +30,31 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new EntityDontExistException("User not found"));
     }
 
+
     @Override
-    public Long create(User user) {
+    public Long create(RegisterDTO registerDTO) {
+
+        if (userRepository.findByUsername(registerDTO.getUsername()).isPresent()) {
+            throw new EntityDontExistException("Username already exists");
+        }
+
+        User user = new User();
+        user.setNom(registerDTO.getNom());
+        user.setUsername(registerDTO.getUsername());
+        user.setPassword(passwordEncoder.encode(registerDTO.getPassword()));
+        user.setRole("ROLE_USER");
+
         return userRepository.save(user).getId();
     }
+
+
 
     @Override
     public User update(Long id, User user) {
         User existing = findById(id);
         existing.setNom(user.getNom());
         existing.setUsername(user.getUsername());
+        existing.setRole(user.getRole());
         return userRepository.save(existing);
     }
 

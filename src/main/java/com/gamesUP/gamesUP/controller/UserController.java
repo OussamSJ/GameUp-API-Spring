@@ -1,5 +1,6 @@
 package com.gamesUP.gamesUP.controller;
 
+import com.gamesUP.gamesUP.dto.RegisterDTO;
 import com.gamesUP.gamesUP.model.User;
 import com.gamesUP.gamesUP.service.UserService;
 import jakarta.validation.Valid;
@@ -30,8 +31,8 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Long create(@RequestBody @Valid User user) {
-        return userService.create(user);
+    public Long create(@RequestBody @Valid RegisterDTO registerDTO) {
+        return userService.create(registerDTO);
     }
 
     @PutMapping("/{id}")
