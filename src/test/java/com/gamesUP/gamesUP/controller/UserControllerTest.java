@@ -52,7 +52,7 @@ class UserControllerTest {
     @Test
     void shouldCreateUser() throws Exception {
         User user = new User(null, "Charlie", null,null,null);
-        when(userService.create(any(User.class))).thenReturn(1L);
+        when(userService.create(any(com.gamesUP.gamesUP.dto.RegisterDTO.class))).thenReturn(1L);
 
         mockMvc.perform(post("/api/users")
                         .contentType(MediaType.APPLICATION_JSON)

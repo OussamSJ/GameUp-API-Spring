@@ -1,5 +1,6 @@
 package com.gamesUP.gamesUP.service;
 
+import com.gamesUP.gamesUP.dto.RegisterDTO;
 import com.gamesUP.gamesUP.exception.EntityDontExistException;
 import com.gamesUP.gamesUP.model.User;
 import com.gamesUP.gamesUP.repository.UserRepository;
@@ -7,6 +8,7 @@ import com.gamesUP.gamesUP.service.impl.UserServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.*;
 
@@ -17,13 +19,15 @@ class UserServiceTest {
 
     private UserRepository userRepository;
     private UserServiceImpl userService;
+    private PasswordEncoder passwordEncoder;
+
 
     @BeforeEach
     void setUp() {
         userRepository = mock(UserRepository.class);
-        userService = new UserServiceImpl(userRepository);
+        passwordEncoder = mock(PasswordEncoder.class);
+        userService = new UserServiceImpl(userRepository, passwordEncoder);
     }
-
     @Test
     void shouldFindAllUsers() {
         List<User> users = List.of(new User(1L, "John", null,null,null));
@@ -58,7 +62,17 @@ class UserServiceTest {
         User saved = new User(1L, "New User", null,null,null);
         when(userRepository.save(user)).thenReturn(saved);
 
-        Long id = userService.create(user);
+        RegisterDTO dto = new RegisterDTO("New User", "username", "password");
+
+        when(userRepository.findByUsername("username")).thenReturn(Optional.empty());
+        when(passwordEncoder.encode("password")).thenReturn("encodedPassword");
+
+        User registred = new User(1L, "New User", "username", "encodedPassword", "ROLE_USER");
+        when(userRepository.save(any(User.class))).thenReturn(registred);
+
+        Long id = userService.create(dto);
+
+
 
         assertEquals(1L, id);
     }
