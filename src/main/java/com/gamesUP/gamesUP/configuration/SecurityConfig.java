@@ -59,6 +59,9 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PATCH,"/api/games/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE,"/api/games/**").hasRole("ADMIN")
 
+                        //Recommendations
+                        .requestMatchers(HttpMethod.POST,"/api/recommendations/**").permitAll()
+
                         //Categories
                         .requestMatchers(HttpMethod.GET,"/api/categories/**").permitAll()
                         .requestMatchers(HttpMethod.POST,"/api/categories").hasRole("ADMIN")
