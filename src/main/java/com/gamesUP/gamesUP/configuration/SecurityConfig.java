@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -33,6 +34,9 @@ public class SecurityConfig {
 
         http
                 .cors(withDefaults())
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"))
+                .headers(headers -> headers.frameOptions().sameOrigin())
+                .formLogin(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .exceptionHandling(ex -> ex
@@ -60,7 +64,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE,"/api/games/**").hasRole("ADMIN")
 
                         //Recommendations
-                        .requestMatchers(HttpMethod.POST,"/api/recommendations/**").permitAll()
+                        //.requestMatchers(HttpMethod.POST,"/api/recommendations/**").hasRole("")
 
                         //Categories
                         .requestMatchers(HttpMethod.GET,"/api/categories/**").permitAll()
@@ -83,6 +87,13 @@ public class SecurityConfig {
                         //Avis
                         .requestMatchers(HttpMethod.GET,"/api/avis/**").permitAll()
 
+                        //Purchase
+                        .requestMatchers("/api/purchases/**").hasRole("ADMIN")
+
+                        //Purchase_Lines
+                        .requestMatchers("/api/purchase-lines/**").hasRole("ADMIN")
+
+
                         //Users
                         .requestMatchers("/api/users/**").hasRole("ADMIN")
 
@@ -91,6 +102,10 @@ public class SecurityConfig {
 
                         //Inventory-lines
                         .requestMatchers("/api/inventory-lines/**").hasRole("ADMIN")
+
+                        //BDD
+                        .requestMatchers("/h2-console/**").permitAll()
+
 
                         //Documentation Swagger
                         .requestMatchers(

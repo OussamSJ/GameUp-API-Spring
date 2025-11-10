@@ -29,6 +29,8 @@ class UserControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
+
+
     @Test
     void shouldGetAllUsers() throws Exception {
         List<User> users = List.of(new User(1L, "Bob", null,null,null));

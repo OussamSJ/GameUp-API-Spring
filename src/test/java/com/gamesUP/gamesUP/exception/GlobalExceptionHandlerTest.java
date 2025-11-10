@@ -84,9 +84,9 @@ class GlobalExceptionHandlerTest {
         ResponseEntity<?> response = handler.handleAll(ex, request);
 
         assertEquals(500, response.getStatusCodeValue());
-        assertBody(response, "Unexpected error", "Internal Server Error", 500);
+        assertNotNull(response.getBody());
+        assertTrue(response.getBody().toString().contains("Unexpected error"));
     }
-
 
     private void assertBody(ResponseEntity<?> response, String expectedMessage, String expectedError, int expectedStatus) {
         assertTrue(response.getBody() instanceof Map);

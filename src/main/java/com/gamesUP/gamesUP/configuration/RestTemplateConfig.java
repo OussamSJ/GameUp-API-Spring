@@ -1,4 +1,4 @@
-package com.gamesUP.gamesUP.config;
+package com.gamesUP.gamesUP.configuration;
 
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
